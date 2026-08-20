@@ -212,24 +212,23 @@ section{padding:66px 0}
 .cta .in{max-width:var(--max);margin:0 auto;padding:0 22px;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
 .cta h2{font-family:var(--disp);font-weight:800;font-style:italic;text-transform:uppercase;font-size:clamp(36px,5vw,58px);line-height:.9;letter-spacing:-.02em}
 .cta p{margin-top:14px;font-size:17.5px;max-width:32rem}
-.form{background:var(--azul-fundo);color:#fff;padding:26px 24px;border-radius:4px}
-.form label{display:block;font-family:var(--dado);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amarelo);margin-bottom:6px}
-.form input,.form select{
-  width:100%;padding:12px 13px;border-radius:3px;border:1px solid rgba(255,255,255,.24);
-  background:rgba(255,255,255,.07);color:#fff;font-family:var(--corpo);font-size:16px;margin-bottom:15px;
+.form{background:var(--azul-fundo);color:#fff;padding:30px 26px;border-radius:4px;text-align:center}
+.form .kicker{
+  display:block;font-family:var(--dado);font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--amarelo);margin-bottom:12px;
 }
-.form input::placeholder{color:rgba(255,255,255,.42)}
-.form input:focus,.form select:focus{outline:2px solid var(--amarelo);outline-offset:1px}
-.form select option{color:#0A1A2A}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.45;margin-bottom:16px}
-.consent input{width:auto;margin:3px 0 0}
-.form button{
-  width:100%;border:none;cursor:pointer;background:var(--amarelo);color:var(--azul-fundo);
+.form h3{
   font-family:var(--disp);font-weight:800;font-style:italic;text-transform:uppercase;
-  font-size:21px;padding:14px;border-radius:3px;transition:.18s;
+  font-size:clamp(26px,3.4vw,34px);line-height:.95;letter-spacing:-.01em;margin-bottom:12px;
 }
-.form button:hover{background:#ffd23f}
-.form .ok{display:none;text-align:center;padding:14px 0;color:var(--amarelo);font-weight:600}
+.form p{color:rgba(255,255,255,.82);font-size:15.5px;margin:0 auto 22px;max-width:26rem}
+.form .btn{
+  display:block;text-decoration:none;background:var(--amarelo);color:var(--azul-fundo);
+  font-family:var(--disp);font-weight:800;font-style:italic;text-transform:uppercase;
+  font-size:21px;padding:15px 14px;border-radius:3px;transition:.18s;
+}
+.form .btn:hover,.form .btn:focus-visible{background:#ffd23f}
+.form .nota{font-size:12.5px;color:rgba(255,255,255,.62);margin:14px auto 0;max-width:24rem}
 
 /* ---------- compartilhar ---------- */
 .share{background:var(--papel);border-top:1px solid rgba(10,26,42,.12)}
@@ -528,48 +527,20 @@ footer a{color:var(--amarelo);text-decoration:none}
       <h2>Some com a gente</h2>
       <p>
         Quem faz uma campanha não é o candidato, são as pessoas que falam bem dele para quem confia nelas.
-        Deixe seu contato e a equipe fala com você.
+        Faça seu cadastro e some com a gente.
       </p>
       <p style="font-size:15px;opacity:.8;margin-top:10px">
         Prefere conversar direto? Chame no WhatsApp da campanha ou siga
         <strong>@pastordanieldecastro</strong>.
       </p>
     </div>
-    <form class="form rv" id="f" novalidate>
-      <div>
-        <label for="nome">Nome completo</label>
-        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como você é chamado" required>
-      </div>
-      <div>
-        <label for="tel">WhatsApp com DDD</label>
-        <input id="tel" name="tel" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(61) 90000-0000" required>
-      </div>
-      <div>
-        <label for="ra">Onde você vota</label>
-        <select id="ra" name="ra" required>
-          <option value="">Escolha sua região</option>
-          <option>Vicente Pires</option>
-          <option>26 de Setembro</option>
-          <option>Águas Claras</option>
-          <option>Arniqueira</option>
-          <option>Taguatinga</option>
-          <option>Riacho Fundo I</option>
-          <option>Riacho Fundo II</option>
-          <option>Samambaia</option>
-          <option>Ceilândia</option>
-          <option>Brazlândia</option>
-          <option>Recanto das Emas</option>
-          <option>Outra região do DF</option>
-          <option>Voto fora do DF</option>
-        </select>
-      </div>
-      <label class="consent" for="ok">
-        <input type="checkbox" id="ok" name="ok" required>
-        <span>Autorizo o uso dos meus dados para contato da campanha, com a finalidade exclusivamente eleitoral. Posso pedir a correção ou a exclusão a qualquer momento pelo canal indicado no rodapé.</span>
-      </label>
-      <button type="submit">Quero somar</button>
-      <p class="ok" id="ok-msg">Recebido. Em breve alguém da equipe fala com você.</p>
-    </form>
+    <div class="form rv">
+      <span class="kicker">Cadastro da campanha</span>
+      <h3>Quero somar</h3>
+      <p>É rápido: você preenche seus dados na plataforma da campanha e a equipe entra em contato.</p>
+      <a class="btn" href="https://geracao.pulsodf.com.br/marcos-souza-b3ce" target="_blank" rel="noopener">Fazer meu cadastro</a>
+      <p class="nota">Você será levado para a plataforma de cadastro. Seus dados são usados com finalidade exclusivamente eleitoral.</p>
+    </div>
   </div>
 </section>
 
@@ -639,19 +610,6 @@ footer a{color:var(--amarelo);text-decoration:none}
     w.href = "https://wa.me/?text=" + encodeURIComponent(txt);
   }
 
-  // formulário
-  var f = document.getElementById("f");
-  if (f) {
-    f.addEventListener("submit", function(ev){
-      ev.preventDefault();
-      if (!f.checkValidity()) { f.reportValidity(); return; }
-      // TODO: enviar para o endpoint do aplicativo de cadastro da campanha
-      // fetch("__ENDPOINT_DO_APP__", {method:"POST", headers:{"Content-Type":"application/json"},
-      //   body: JSON.stringify(Object.fromEntries(new FormData(f)))});
-      f.querySelectorAll("input,select,button,.consent").forEach(function(el){ el.style.display="none"; });
-      document.getElementById("ok-msg").style.display = "block";
-    });
-  }
 })();
 </script>
 </body>
