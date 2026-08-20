@@ -292,6 +292,10 @@ section{padding:66px 0}
 .share .btn-dl:hover{background:#ffd23f}
 .share .btn-sh{border:2px solid var(--azul);color:var(--azul);background:transparent}
 .share .btn-sh:hover{background:var(--azul);color:#fff}
+.share .alt-dl{
+  margin-top:12px;font-size:13.5px;color:var(--cinza);
+}
+.share .alt-dl a{color:var(--azul);font-weight:600}
 .share .ok-copia{
   display:none;margin-top:10px;font-family:var(--dado);font-size:11px;font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:var(--azul);
@@ -659,10 +663,11 @@ footer a{color:var(--amarelo);text-decoration:none}
       </p>
       <div class="acts" style="margin-top:20px">
         <a class="btn btn-a" id="wpp" href="#" style="background:var(--azul);color:#fff" target="_blank" rel="noopener">Enviar no WhatsApp</a>
-        <a class="btn btn-dl" id="baixar" href="#" download="pastor-daniel-de-castro-11133.jpg">Baixar a imagem</a>
+        <a class="btn btn-dl" id="baixar" href="https://drive.google.com/uc?export=download&amp;id=1OmFGPip-4fncB79SR9QUrmtFIN3C87YY" target="_blank" rel="noopener">Baixar a imagem</a>
         <button class="btn btn-sh" id="compartilhar" type="button">Compartilhar esta página</button>
       </div>
       <p class="ok-copia" id="ok-copia">Link copiado — agora é só colar e mandar.</p>
+      <p class="alt-dl">Não baixou? <a href="https://drive.google.com/file/d/1OmFGPip-4fncB79SR9QUrmtFIN3C87YY/view?usp=share_link" target="_blank" rel="noopener">Abrir a imagem no Google Drive</a></p>
     </div>
   </div>
 </section>
@@ -707,37 +712,6 @@ footer a{color:var(--amarelo);text-decoration:none}
   var msg = "Olha o que o Pastor Daniel de Castro fez nesses 4 anos. Eu voto 11133. " + location.href;
   var w = document.getElementById("wpp");
   if (w) { w.href = "https://wa.me/?text=" + encodeURIComponent(msg); }
-
-  // download da arte: converte para blob (data: URL trava em varios navegadores)
-  var arte = document.querySelector(".share .card-img img");
-  var dl = document.getElementById("baixar");
-  if (arte && dl) {
-    dl.href = arte.src;
-    var pronto = null;
-    dl.addEventListener("click", function(ev){
-      if (pronto) { return; }
-      ev.preventDefault();
-      var acabar = function(url){
-        pronto = url;
-        dl.href = url;
-        dl.click();
-        setTimeout(function(){
-          if (url.indexOf("blob:") === 0) { URL.revokeObjectURL(url); }
-          pronto = null;
-          dl.href = arte.src;
-        }, 4000);
-      };
-      if (window.fetch && window.URL && URL.createObjectURL) {
-        fetch(arte.src)
-          .then(function(r){ return r.blob(); })
-          .then(function(b){ acabar(URL.createObjectURL(b)); })
-          .catch(function(){ window.open(arte.src, "_blank"); pronto = null; });
-      } else {
-        window.open(arte.src, "_blank");
-        pronto = null;
-      }
-    });
-  }
 
   // compartilhar a pagina
   var bt = document.getElementById("compartilhar");
