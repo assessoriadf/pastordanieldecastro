@@ -72,6 +72,7 @@ a{color:inherit}
   text-decoration:none;padding:6px 11px;border-radius:2px;transition:.18s;
   white-space:nowrap;
 }
+.tenses .t-sm{display:none}
 .tenses a:hover,.tenses a:focus-visible{color:#fff;background:rgba(255,255,255,.09)}
 .tenses a.on{color:var(--azul-fundo);background:var(--amarelo)}
 
@@ -110,24 +111,25 @@ a{color:inherit}
 .btn-a:hover{background:#ffd23f}
 .btn-b{border-color:rgba(255,255,255,.5);color:#fff}
 .btn-b:hover{border-color:#fff;background:rgba(255,255,255,.1)}
-.hero .foto{position:relative;align-self:end;z-index:1}
+.hero .foto{position:relative;align-self:end;z-index:1;display:flex;flex-direction:column;justify-content:flex-end}
 .hero .foto img{
-  width:100%;margin-bottom:0;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%),linear-gradient(180deg,#000 88%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%),linear-gradient(180deg,#000 88%,transparent 100%);
+  order:1;width:100%;margin-bottom:0;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%),linear-gradient(180deg,#000 84%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%),linear-gradient(180deg,#000 84%,transparent 100%);
   -webkit-mask-composite:source-in; mask-composite:intersect;
 }
 .hero .selo{
-  position:absolute;right:6px;bottom:14px;text-align:right;color:#fff;z-index:3;
+  order:2;text-align:right;color:#fff;z-index:3;
+  margin-top:-.1em;padding-bottom:26px;pointer-events:none;
 }
 .hero .selo .n{
   font-family:var(--disp);font-weight:800;font-style:italic;
-  font-size:clamp(112px,15.4vw,208px);line-height:.8;letter-spacing:-.045em;
-  text-shadow:0 8px 42px rgba(3,40,66,.68);
+  font-size:clamp(88px,14.2vw,204px);line-height:.78;letter-spacing:-.045em;
+  text-shadow:0 8px 42px rgba(3,40,66,.55);
 }
 .hero .selo .l{
-  font-family:var(--dado);font-size:clamp(12px,1.5vw,15px);font-weight:700;letter-spacing:.3em;
-  color:var(--amarelo);margin-top:10px;
+  font-family:var(--dado);font-size:clamp(11px,1.35vw,15px);font-weight:700;letter-spacing:.3em;
+  color:var(--amarelo);margin-top:8px;
 }
 
 /* ---------- faixa de números ---------- */
@@ -313,7 +315,7 @@ footer a{color:var(--amarelo);text-decoration:none}
   .hero .grid{grid-template-columns:1fr}
   .hero .txt{padding:40px 0 26px;order:2}
   .hero .foto{order:1;margin:0 -22px;}
-  .hero .selo{right:22px;top:auto;bottom:8px}
+  .hero .selo{padding:0 22px 6px;margin-top:-.14em}
   .hero .foto img{-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 78%,transparent 100%);-webkit-mask-composite:source-over;mask-composite:add}
   .faixa .in{grid-template-columns:repeat(2,1fr);gap:18px}
   .placas{grid-template-columns:1fr}
@@ -331,7 +333,17 @@ footer a{color:var(--amarelo);text-decoration:none}
   .topbar .num{font-size:36px}
   .topbar .num small{font-size:8.5px;letter-spacing:.18em}
 }
+@media (max-width:640px){
+  .topbar .in{flex-wrap:wrap;row-gap:8px;padding-bottom:10px}
+  .topbar .right{width:100%;justify-content:space-between;gap:8px}
+  .tenses{flex:1;justify-content:flex-start;gap:2px;min-width:0}
+  .tenses a{font-size:11.5px;padding:5px 7px;letter-spacing:0}
+  .tenses .t-lg{display:none}
+  .tenses .t-sm{display:inline}
+  .ig-pill{flex:none}
+}
 @media (max-width:420px){
+  .hero .selo .l{letter-spacing:.22em}
   .tenses a{font-size:11.5px;padding:5px 6px;letter-spacing:0}
   .faixa .item .n{font-size:34px}
 }
@@ -351,7 +363,7 @@ footer a{color:var(--amarelo);text-decoration:none}
         <a href="#fez">Ele fez</a>
         <a href="#faz">Ele faz</a>
         <a href="#fara">Ele fará +</a>
-        <a href="#somar" class="on">Quero conhecer</a>
+        <a href="#somar" class="on"><span class="t-lg">Quero conhecer</span><span class="t-sm">Conhecer</span></a>
       </nav>
       <a class="ig-pill" href="https://www.instagram.com/pastordanieldecastro/" target="_blank" rel="noopener" aria-label="Instagram do Pastor Daniel de Castro">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg><span>Instagram</span>
@@ -696,10 +708,36 @@ footer a{color:var(--amarelo);text-decoration:none}
   var w = document.getElementById("wpp");
   if (w) { w.href = "https://wa.me/?text=" + encodeURIComponent(msg); }
 
-  // botao de download aponta para a arte ja carregada
+  // download da arte: converte para blob (data: URL trava em varios navegadores)
   var arte = document.querySelector(".share .card-img img");
   var dl = document.getElementById("baixar");
-  if (arte && dl) { dl.href = arte.src; }
+  if (arte && dl) {
+    dl.href = arte.src;
+    var pronto = null;
+    dl.addEventListener("click", function(ev){
+      if (pronto) { return; }
+      ev.preventDefault();
+      var acabar = function(url){
+        pronto = url;
+        dl.href = url;
+        dl.click();
+        setTimeout(function(){
+          if (url.indexOf("blob:") === 0) { URL.revokeObjectURL(url); }
+          pronto = null;
+          dl.href = arte.src;
+        }, 4000);
+      };
+      if (window.fetch && window.URL && URL.createObjectURL) {
+        fetch(arte.src)
+          .then(function(r){ return r.blob(); })
+          .then(function(b){ acabar(URL.createObjectURL(b)); })
+          .catch(function(){ window.open(arte.src, "_blank"); pronto = null; });
+      } else {
+        window.open(arte.src, "_blank");
+        pronto = null;
+      }
+    });
+  }
 
   // compartilhar a pagina
   var bt = document.getElementById("compartilhar");
